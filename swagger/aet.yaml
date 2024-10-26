@@ -1,0 +1,169 @@
+/aets/{aet}/studies:
+  get:
+    security:
+      - bearerAuth: []
+    tags:
+      - aet
+    summary: get study list on AETitle
+    parameters:
+    - name: "aet"
+      in: "path"
+      description: "dcm4chee AETitle"
+      required: true
+      type: "string"
+    - name: "offset"
+      in: "query"
+      description: "offset"
+      type: "string"
+    - name: "limit"
+      in: "query"
+      description: "limit"
+      type: "string"
+    - name: "StudyDate"
+      in: "query"
+      description: "example: 19530727-20220106"
+      type: "string"
+    - name: "fuzzymatching"
+      in: "query"
+      description: "true or false"
+      type: "string"
+    - name: "includefield"
+      in: "query"
+      description: "include field"
+      type: "string"
+    responses:
+      '200':
+        $ref: './openapi.yaml#/components/responses/200'
+      "400":
+        $ref: './openapi.yaml#/components/responses/400'
+      "401": 
+        $ref: './openapi.yaml#/components/responses/401'
+  post:
+    security:
+      - bearerAuth: []
+    tags:
+      - aet
+    summary: upload file
+    parameters:
+    - name: "aet"
+      in: "path"
+      description: "dcm4chee AETitle"
+      required: true
+      type: "string"
+    requestBody:
+      content:
+        multipart/form-data:
+          schema:
+            type: object
+            properties: # Request parts
+              # id:
+              #   type: string
+              #   format: uuid
+              uploadfile:
+                type: string
+                format: binary
+          encoding: # The same level as schema
+            uploadfile: # Property name (see above)
+              contentType: application/dicom
+    responses:
+      '200':
+        $ref: './openapi.yaml#/components/responses/200'
+      "400":
+        $ref: './openapi.yaml#/components/responses/400'
+      "401": 
+        $ref: './openapi.yaml#/components/responses/401'
+/aets/{aet}/studies/{study_iuid}/series:
+  get:
+    security:
+      - bearerAuth: []
+    tags:
+      - aet
+    summary: get series list on study iuid
+    parameters:
+    - name: "aet"
+      in: "path"
+      description: "dcm4chee AETitle"
+      required: true
+      type: "string"
+    - name: "study_iuid"
+      in: "path"
+      description: "study iuid"
+      required: true
+      type: "string"
+    responses:
+      '200':
+        $ref: './openapi.yaml#/components/responses/200'
+      "400":
+        $ref: './openapi.yaml#/components/responses/400'
+      "401": 
+        $ref: './openapi.yaml#/components/responses/401'
+/aets/{aet}/studies/{study_iuid}/series/{series_iuid}/metadata:
+  get:
+    security:
+      - bearerAuth: []
+    tags:
+      - aet
+    summary: get metadata list on series iuid
+    parameters:
+    - name: "aet"
+      in: "path"
+      description: "dcm4chee AETitle"
+      required: true
+      type: "string"
+    - name: "study_iuid"
+      in: "path"
+      description: "study iuid"
+      required: true
+      type: "string"
+    - name: "series_iuid"
+      in: "path"
+      description: "series iuid"
+      required: true
+      type: "string"
+    responses:
+      '200':
+        $ref: './openapi.yaml#/components/responses/200'
+      "400":
+        $ref: './openapi.yaml#/components/responses/400'
+      "401": 
+        $ref: './openapi.yaml#/components/responses/401'
+/aets/{aet}/studies/{study_iuid}/series/{series_iuid}/instances/{instance_iuid}/frames/{index}:
+  get:
+    security:
+      - bearerAuth: []
+    tags:
+      - aet
+    summary: get image by frame index
+    parameters:
+    - name: "aet"
+      in: "path"
+      description: "dcm4chee AETitle"
+      required: true
+      type: "string"
+    - name: "study_iuid"
+      in: "path"
+      description: "study iuid"
+      required: true
+      type: "string"
+    - name: "series_iuid"
+      in: "path"
+      description: "series iuid"
+      required: true
+      type: "string"
+    - name: "instance_iuid"
+      in: "path"
+      description: "instance iuid"
+      required: true
+      type: "string"
+    - name: "index"
+      in: "path"
+      description: "image frame index"
+      required: true
+      type: "string"
+    responses:
+      '200':
+        $ref: './openapi.yaml#/components/responses/200'
+      "400":
+        $ref: './openapi.yaml#/components/responses/400'
+      "401": 
+        $ref: './openapi.yaml#/components/responses/401'

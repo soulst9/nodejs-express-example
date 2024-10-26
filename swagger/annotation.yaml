@@ -1,0 +1,60 @@
+/annotations/{annotation_id}:
+  get:
+    security:
+      - bearerAuth: []
+    tags:
+      - annotation
+    summary: get user annotation information
+    parameters:
+    - name: "annotation_id"
+      in: "path"
+      description: "annotation id"
+      required: true
+      type: "string"
+    responses:
+      '200':
+        description: annotation result file
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+        headers:
+          Content-Disposition:
+            schema:
+              type: string
+              description: file
+              example: attachment; filename="result.json"              
+      "400":
+        $ref: './openapi.yaml#/components/responses/400'
+      "401": 
+        $ref: './openapi.yaml#/components/responses/401'
+/annotations:        
+  post:
+    security:
+      - bearerAuth: []
+    tags:
+      - annotation
+    summary: upload annotation result file
+    requestBody:
+      content:
+        multipart/form-data:
+          schema:
+            type: object
+            properties: # Request parts
+              image_id:
+                type: string
+                format: uuid
+              uploadfile:
+                type: string
+                format: binary
+          encoding: # The same level as schema
+            uploadfile: # Property name (see above)
+              contentType: application/dicom
+    responses:
+      '200':
+        $ref: './openapi.yaml#/components/responses/200'
+      "400":
+        $ref: './openapi.yaml#/components/responses/400'
+      "401": 
+        $ref: './openapi.yaml#/components/responses/401'

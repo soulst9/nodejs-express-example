@@ -1,0 +1,58 @@
+/users/signup:
+  post:
+    tags:
+      - user
+    summary: signiup router
+    requestBody:
+      description: "member information to register"
+      required: true
+      content:        
+        application/json:
+          schema:
+            $ref: "./openapi.yaml#/components/schemas/User"
+        application/x-www-form-urlencoded:
+          schema:
+            type: object
+            properties:
+              payload:     # <--- form field that contains the JSON message
+                $ref: "./openapi.yaml#/components/schemas/User"
+          encoding:
+            payload:
+              contentType: application/json      
+    responses:
+      '200':
+        $ref: './openapi.yaml#/components/responses/200'
+      "400":
+        $ref: './openapi.yaml#/components/responses/400'
+      "401": 
+        $ref: './openapi.yaml#/components/responses/401'
+/users/signin:
+  post:
+    tags:
+      - user
+    summary: signin router
+    requestBody:
+      description: "member information to register"
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+          # $ref: "./openapi.yaml#/components/schemas/User"
+          # examples:
+          #   email: 
+          #     value: "pacs@deepnoid.com"
+          #   password: 
+          #     value: "!Dpz123456"
+    responses:
+      '200':
+        $ref: './openapi.yaml#/components/responses/200'
+      "400":
+        $ref: './openapi.yaml#/components/responses/400'
+      "401": 
+        $ref: './openapi.yaml#/components/responses/401'

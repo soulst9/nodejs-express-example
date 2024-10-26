@@ -1,0 +1,73 @@
+openapi: "3.0.0"
+info:
+  version: "0.0.1"
+  title: "DEEPPACS Zero 2"
+  description: "This is API Documents for DEEPPACS Zero 2"
+
+servers:
+  - description: "localhost"
+    url: "http://localhost:5000"
+  - description: "development"
+    url: "http://10.1.6.70:5000"    
+paths:
+  $ref:
+  /users/signup:
+    $ref: './user.yaml#/~1users~1signup'
+  /users/signin:
+    $ref: './user.yaml#/~1users~1signin'
+  /aets/{aet}/studies:
+    $ref: './aet.yaml#/~1aets~1{aet}~1studies'
+  /aets/{aet}/studies/{study_iuid}/series:
+    $ref: './aet.yaml#/~1aets~1{aet}~1studies~1{study_iuid}~1series'  
+  /aets/{aet}/studies/{study_iuid}/series/{series_iuid}/metadata:
+    $ref: './aet.yaml#/~1aets~1{aet}~1studies~1{study_iuid}~1series~1{series_iuid}~1metadata'  
+  /aets/{aet}/studies/{study_iuid}/series/{series_iuid}/instances/{instance_iuid}/frames/{index}:
+    $ref: './aet.yaml#/~1aets~1{aet}~1studies~1{study_iuid}~1series~1{series_iuid}~1instances~1{instance_iuid}~1frames~1{index}'  
+  /images/{image_id}:
+    $ref: './image.yaml#/~1images~1{image_id}'
+  /annotations/{annotation_id}:
+    $ref: './annotation.yaml#/~1annotations~1{annotation_id}'
+  /annotations:
+    $ref: './annotation.yaml#/~1annotations'
+    
+components:
+  securitySchemes:
+    bearerAuth:
+      type: apiKey
+      in: header
+      name: Authorization    
+  schemas:
+    User:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        firstname:
+          type: string
+        lastname:
+          type: string
+        nickname: 
+          type: string
+        language:
+          type: string
+  responses:
+    "200":
+      description: successful request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+    "400":
+      description: invalid request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:    
+    "401":
+      description: Access token is missing or invalid
+security:
+  - bearerAuth: []

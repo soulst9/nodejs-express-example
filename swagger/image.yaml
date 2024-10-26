@@ -1,0 +1,21 @@
+/images/{image_id}:
+  get:
+    security:
+      - bearerAuth: []
+    tags:
+      - image
+    summary: get image information
+    parameters:
+    - name: "image_id"
+      in: "path"
+      description: "image id"
+      required: true
+      type: "string"
+    responses:
+      '200':
+        $ref: './openapi.yaml#/components/responses/200'
+      "400":
+        $ref: './openapi.yaml#/components/responses/400'
+      "401": 
+        $ref: './openapi.yaml#/components/responses/401'
+        
